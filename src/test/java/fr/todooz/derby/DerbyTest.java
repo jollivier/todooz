@@ -24,12 +24,15 @@ public class DerbyTest {
 	      connection = DriverManager.getConnection("jdbc:derby:target/testdb;create=true");
 
 	      clean();
+
 	   }
 
 	   @After
 	   public void clean() throws SQLException {
 	      try {
 	         connection.createStatement().execute("drop table test");
+		     connection.close();
+
 	      } catch (SQLException e) {
 	         // la table n'existait pas
 	         if (!e.getMessage().equals("'DROP TABLE' cannot be performed on 'TEST' because it does not exist.")) {
@@ -48,6 +51,7 @@ public class DerbyTest {
 
 	      // création d'une connexion
 	      DriverManager.getConnection("jdbc:derby:target/testdb;create=true");
+
 	   }
 	
 	   
@@ -55,6 +59,7 @@ public class DerbyTest {
 	   @Test
 	   public void createTable() throws ClassNotFoundException, SQLException {
 	      connection.createStatement().execute("create table test (firstname varchar(30), lastname varchar(30))");
+
 	   }
 	   
 	   
@@ -69,6 +74,9 @@ public class DerbyTest {
 	      stmt.setString(2, "Marx");
 
 	      Assert.assertEquals(1, stmt.executeUpdate());
+	      stmt.close();
+
+
 	   }
 
 	   
@@ -80,6 +88,9 @@ public class DerbyTest {
 	     ResultSet rs = stmt.executeQuery();
 	     rs.next();
 	     Assert.assertEquals("Groucho", rs.getString("firstname"));
+	     stmt.close();
+
+
 	   }
 
 	   @Test
@@ -88,6 +99,9 @@ public class DerbyTest {
 	     PreparedStatement stmt = connection.prepareStatement("delete from test where lastname = ?");
 	     stmt.setString(1, "Marx");
 	     Assert.assertEquals(1, stmt.executeUpdate());
+	     stmt.close();
+
+
 	   }
 
 

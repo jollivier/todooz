@@ -4,12 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Todooz</title>
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -26,15 +28,6 @@
             <widget:task task="${task}"/>
         </c:forEach>
 
-
-            <div>
-                <p>20 juillet 2012</p>
-                <span class="lead">Read Effective Java</span>
-                <span class="badge badge-info">Java</span>
-                <span class="badge badge-info">Java</span>
-                <p>Read Effective Java before it's too late</p>
-            </div>
-
         </div>
         <div class="span3">
             <div>
@@ -47,19 +40,9 @@
 
             <div>
                 <legend>Tags</legend>
-                <a href="/tag/java" style="font-size:14px">java</a>
-                <a href="/tag/java" style="font-size:20px">java</a>
-                <a href="/tag/java" style="font-size:16px">java</a>
-                <a href="/tag/java" style="font-size:12px">java</a>
-                <a href="/tag/java" style="font-size:10px">java</a>
-                <a href="/tag/java" style="font-size:22px">java</a>
-                <a href="/tag/java" style="font-size:12px">java</a>
-                <a href="/tag/java" style="font-size:14px">java</a>
-                <a href="/tag/java" style="font-size:18px">java</a>
-                <a href="/tag/java" style="font-size:24px">java</a>
-                <a href="/tag/java" style="font-size:12px">java</a>
-                <a href="/tag/java" style="font-size:10px">java</a>
-                <a href="/tag/java" style="font-size:14px">java</a>
+                    <c:forEach var="tag" items="${tagCloud.tags}">
+                    <a href="/tag/${tag}" style="font-size:14px">${tag}</a>
+                </c:forEach>            
             </div>
         </div>
     </div>
