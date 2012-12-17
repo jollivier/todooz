@@ -51,13 +51,11 @@ public class TaskServiceTest {
 	@Test
 	public void save() {
 
-
 		taskService.save(task());
 	}
 
 	@Test
 	public void delete() {
-
 
 		Task task = task();
 		taskService.save(task);
@@ -70,7 +68,6 @@ public class TaskServiceTest {
 	@Test
 	public void findAll() {
 
-
 		taskService.save(task());
 		taskService.save(task());
 
@@ -79,7 +76,6 @@ public class TaskServiceTest {
 
 	@Test
 	public void findByQuery() {
-
 
 		taskService.save(task());
 		taskService.save(task());
@@ -91,7 +87,6 @@ public class TaskServiceTest {
 
 	@Test
 	public void count() {
-
 
 		taskService.save(task());
 		taskService.save(task());

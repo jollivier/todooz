@@ -21,7 +21,6 @@ import fr.todooz.util.TagCloud;
 
 import fr.todooz.domain.Task;
 
-
 @Controller
 public class IndexController {
 	@Inject
@@ -29,19 +28,18 @@ public class IndexController {
 
 	@Inject
 	private TagCloudService tagCloudService;
-	
-	private Interval todayInterval() {
-	    DateMidnight today = new DateMidnight();
 
-	    return new Interval(today, today.plusDays(1));
+	private Interval todayInterval() {
+		DateMidnight today = new DateMidnight();
+
+		return new Interval(today, today.plusDays(1));
 	}
-	
+
 	@ModelAttribute
 	public TagCloud tagCloud() {
-	    return tagCloudService.buildTagCloud();
+		return tagCloudService.buildTagCloud();
 	}
-	
-	
+
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
 		model.addAttribute("tasks", taskService.findAll());
@@ -54,13 +52,13 @@ public class IndexController {
 		return "index";
 
 	}
-	
+
 	@RequestMapping("/tag/{tag}")
 	public String tag(@PathVariable String tag, Model model) {
-	    model.addAttribute("tasks", taskService.findByTag(tag));
-	    return "index";
+		model.addAttribute("tasks", taskService.findByTag(tag));
+		return "index";
 	}
-	
+
 	public String page(Model model, List<Task> tasks) {
 		model.addAttribute("tasks", tasks);
 		return "index";
@@ -68,20 +66,22 @@ public class IndexController {
 
 	@RequestMapping("/today")
 	public String today(Model model) {
-		return page(model, taskService.findByInterval(IntervalUtils.todayInterval()));
+		return page(model,
+				taskService.findByInterval(IntervalUtils.todayInterval()));
 	}
 
 	@RequestMapping("/tomorrow")
 	public String tomorrow(Model model) {
-		return page(model, taskService.findByInterval(IntervalUtils.tomorrowInterval()));
+		return page(model,
+				taskService.findByInterval(IntervalUtils.tomorrowInterval()));
 	}
-	
+
 	@PostConstruct
 	public void bootstrap() {
 
 		for (Task task : taskService.findAll()) {
 			taskService.delete(task.getId());
-			
+
 		}
 		if (taskService.count() == 0) {
 			Task task1 = new Task();
@@ -107,5 +107,4 @@ public class IndexController {
 		}
 	}
 
-	
 }

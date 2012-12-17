@@ -9,29 +9,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class HelloWorldServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-   @Override
-   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                                   throws ServletException, IOException {
-	   /*
-	   String name = request.getParameter("name");
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * String name = request.getParameter("name");
+		 * 
+		 * if (name == null) { name = (String)
+		 * request.getSession(true).getAttribute("name"); }
+		 * 
+		 * //response.getWriter().write("Bonjour " + name +
+		 * "!!!111!1!1!!1!!!!1!");
+		 * 
+		 * 
+		 * PrintWriter writer = response.getWriter();
+		 * 
+		 * writer.write("<html><head></head><body>Hello " + name +
+		 * " !</body></html>");
+		 */
 
-       if (name == null) {
-          name = (String) request.getSession(true).getAttribute("name");
-       }
+		// request.getRequestDispatcher("index.html").forward(request,
+		// response);
 
-           //response.getWriter().write("Bonjour " + name + "!!!111!1!1!!1!!!!1!");
-   
-   
-       	PrintWriter writer = response.getWriter();
+		request.setAttribute("name", request.getParameter("name"));
 
-       	writer.write("<html><head></head><body>Hello " + name + " !</body></html>");*/
-	   
-	   //request.getRequestDispatcher("index.html").forward(request, response);
-	   
-	   request.setAttribute("name", request.getParameter("name"));
-
-       request.getRequestDispatcher("/WEB-INF/jsp/hello.jsp").forward(request, response);
-   }
+		request.getRequestDispatcher("/WEB-INF/jsp/hello.jsp").forward(request,
+				response);
+	}
 }

@@ -24,7 +24,8 @@ public class TagCloudServiceImpl implements TagCloudService {
 
 		TagCloud tagCloud = new TagCloud();
 
-		List<String> entries = session.createQuery("select tags from Task").list();
+		List<String> entries = session.createQuery("select tags from Task")
+				.list();
 
 		for (String tags : entries) {
 			tagCloud.add(StringUtils.split(tags, ","));
@@ -33,6 +34,3 @@ public class TagCloudServiceImpl implements TagCloudService {
 		return tagCloud;
 	}
 }
-	
-
-	

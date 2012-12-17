@@ -20,67 +20,67 @@ import fr.todooz.util.TagCloud;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class TagCloudServiceTest {
-   @Inject
-   private SessionFactory sessionFactory;
+	@Inject
+	private SessionFactory sessionFactory;
 
-   @Inject
-   private TagCloudService tagCloudService;
+	@Inject
+	private TagCloudService tagCloudService;
 
-   @After
-   public void cleanDb() {
-      Session session = sessionFactory.openSession();
+	@After
+	public void cleanDb() {
+		Session session = sessionFactory.openSession();
 
-      Transaction transaction = session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
 
-      session.createQuery("delete from Task").executeUpdate();
+		session.createQuery("delete from Task").executeUpdate();
 
-      transaction.commit();
+		transaction.commit();
 
-      session.close();
-   }
+		session.close();
+	}
 
-   @Test
-   public void buildEmptyTagCloud() {
-      TagCloud tagCloud = tagCloudService.buildTagCloud();
+	@Test
+	public void buildEmptyTagCloud() {
+		TagCloud tagCloud = tagCloudService.buildTagCloud();
 
-      Assert.assertEquals(0, tagCloud.size());
-   }
+		Assert.assertEquals(0, tagCloud.size());
+	}
 
-   @Test
-   public void buildTagCloud() {
-      saveSomeTasks();
+	@Test
+	public void buildTagCloud() {
+		saveSomeTasks();
 
-      TagCloud tagCloud = tagCloudService.buildTagCloud();
+		TagCloud tagCloud = tagCloudService.buildTagCloud();
 
-      Assert.assertEquals(5, tagCloud.size());
-      Assert.assertTrue(tagCloud.contains("java"));
-      Assert.assertTrue(tagCloud.contains("python"));
-      Assert.assertTrue(tagCloud.contains("nodejs"));
-   }
+		Assert.assertEquals(5, tagCloud.size());
+		Assert.assertTrue(tagCloud.contains("java"));
+		Assert.assertTrue(tagCloud.contains("python"));
+		Assert.assertTrue(tagCloud.contains("nodejs"));
+	}
 
-   private void saveSomeTasks() {
-      Session session = sessionFactory.openSession();
+	private void saveSomeTasks() {
+		Session session = sessionFactory.openSession();
 
-      Transaction transaction = session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
 
-      session.save(buildTask("java,cobol"));
-      session.save(buildTask("java,python"));
-      session.save(buildTask("ruby,python"));
-      session.save(buildTask("nodejs"));
+		session.save(buildTask("java,cobol"));
+		session.save(buildTask("java,python"));
+		session.save(buildTask("ruby,python"));
+		session.save(buildTask("nodejs"));
 
-      transaction.commit();
+		transaction.commit();
 
-      session.close();
-   }
+		session.close();
+	}
 
-   private Task buildTask(String tags) {
-      Task task = new Task();
+	private Task buildTask(String tags) {
+		Task task = new Task();
 
-      task.setDate(new Date());
-      task.setTitle("Read Effective Java");
-      task.setText("Read Effective Java before it's too late");
-      task.setTags(tags);
+		task.setDate(new Date());
+		task.setTitle("Read Effective Java");
+		task.setText("Read Effective Java before it's too late");
+		task.setTags(tags);
 
-      return task;
-   }
+		return task;
+	}
 }

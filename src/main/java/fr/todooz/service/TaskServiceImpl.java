@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -26,18 +25,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Inject
 	private SessionFactory sessionFactory;
-	
 
-	
 	@Override
 	@Transactional
 	public void save(Task task) {
-	    Session session = sessionFactory.getCurrentSession();
-	    session.saveOrUpdate(task);
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(task);
 	}
-	   
 
-	
 	@Override
 	@Transactional
 	public void delete(Long id) {
@@ -45,37 +40,35 @@ public class TaskServiceImpl implements TaskService {
 		session.delete(session.get(Task.class, id));
 	}
 
-	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Task> findAll() {
-		   return criteria().list();
-	   }
+		return criteria().list();
+	}
 
-
-	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Task> findByQuery(String query) {
-		   return criteria().add(Restrictions.ilike("title", query, MatchMode.ANYWHERE)).list();
-	   }
-
+		return criteria().add(
+				Restrictions.ilike("title", query, MatchMode.ANYWHERE)).list();
+	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public int count() {
-		   Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 
-			return ((Long) session.createCriteria(Task.class)
-					.setProjection(Projections.rowCount()).uniqueResult()).intValue();
-	   }
+		return ((Long) session.createCriteria(Task.class)
+				.setProjection(Projections.rowCount()).uniqueResult())
+				.intValue();
+	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Task> findByTag(final String tag) {
 		List<Task> tasks = findAll();
 
-		CollectionUtils.filter(tasks, new Predicate() {			
+		CollectionUtils.filter(tasks, new Predicate() {
 			@Override
 			public boolean evaluate(Object object) {
 				return ArrayUtils.contains(((Task) object).getTagArray(), tag);
@@ -84,27 +77,27 @@ public class TaskServiceImpl implements TaskService {
 
 		return tasks;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Task> findByInterval(Interval interval) {
-		return criteria()
-			.add(Restrictions.between("date", interval.getStart().toDate(), interval.getEnd().toDate()))
-			.list();
+		return criteria().add(
+				Restrictions.between("date", interval.getStart().toDate(),
+						interval.getEnd().toDate())).list();
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-    public Task findById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
+	@Transactional(readOnly = true)
+	public Task findById(Long id) {
+		Session session = sessionFactory.getCurrentSession();
 
-        return (Task) session.get(Task.class, id);
-    }
-	
-    private Criteria criteria() {
-        Session session = sessionFactory.getCurrentSession();
+		return (Task) session.get(Task.class, id);
+	}
 
-        return session.createCriteria(Task.class).addOrder(Order.desc("date"));
-    }
+	private Criteria criteria() {
+		Session session = sessionFactory.getCurrentSession();
+
+		return session.createCriteria(Task.class).addOrder(Order.desc("date"));
+	}
 
 }

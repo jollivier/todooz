@@ -11,29 +11,29 @@ public class TagCloud {
 		return tags;
 	}
 
-    public void add(String... tags) {
-    	if (tags == null) {
-    		return;
-    	}
-    	
-    	for (String tag : tags) {
-    		add(tag);
-    	}
-    }
-    
-    public void add(String tag) {
-    	if (tag == null || tag.length() == 0) {
-    		return;
-    	}
-    	
-    	if (!contains(tag)) {
-    		tags.add(tag);
-    	}
-    }
+	public void add(String... tags) {
+		if (tags == null) {
+			return;
+		}
 
-    public int size() {
-        return tags.size();
-    }
+		for (String tag : tags) {
+			add(tag);
+		}
+	}
+
+	public void add(String tag) {
+		if (tag == null || tag.length() == 0) {
+			return;
+		}
+
+		if (!contains(tag)) {
+			tags.add(tag);
+		}
+	}
+
+	public int size() {
+		return tags.size();
+	}
 
 	public boolean contains(String tag) {
 		return tags.contains(tag);

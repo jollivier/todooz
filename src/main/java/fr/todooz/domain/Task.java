@@ -11,78 +11,78 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
 
-
 @Entity
 @Table(name = "task")
 public class Task {
-	
+
 	@Column
-    private Date createdAt = new Date();
+	private Date createdAt = new Date();
 
-    @Column
-    private String title;
+	@Column
+	private String title;
 
-    @Column
-    private String text;
+	@Column
+	private String text;
 
-    @Column
-    private Date date;
+	@Column
+	private Date date;
 
-    @Column
-    private String tags;
+	@Column
+	private String tags;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    public Long getId() {
-      return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-      this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+	public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public String getTags() {
-        return tags;
-    }
+	public String getTags() {
+		return tags;
+	}
 
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
-    public String[] getTagArray() {
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String[] getTagArray() {
 		return StringUtils.split(tags, ",");
-    	}
+	}
 }
